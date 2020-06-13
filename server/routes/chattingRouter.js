@@ -9,7 +9,7 @@ const auth = require('../authenticate');
 
 router.route('/getmessages')
     .options(cors.corsWithOptions,(req,res) => {res.sendStatus(200)})
-    .get(cors.cors,auth.verifyUser,(req,res) => {
+    .get(cors.corsWithOptions,auth.verifyUser,(req,res) => {
         Threads.find({$or : [{participant1:mongoose.Types.ObjectId(req.user._id)}, {participant2:mongoose.Types.ObjectId(req.user._id)}]},{_id:1})
         .then(threads => {
             let th = [];
@@ -51,7 +51,7 @@ router.route('/getmessages')
 
 router.route('/getconnectedusers')
     .options(cors.corsWithOptions,(req,res) => {res.sendStatus(200)})
-    .get(cors.cors,auth.verifyUser,(req,res) => {
+    .get(cors.corsWithOptions,auth.verifyUser,(req,res) => {
         Users.find({_id : {$ne : req.user._id}})
         .then(users => {
             res.statusCode = 200;

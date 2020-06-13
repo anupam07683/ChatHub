@@ -12,7 +12,7 @@ export const Auth = (
             case ActionTypes.LOGIN_REQUEST: 
                 return {...state,isLoading: true,isAuthenticated: false,user: action.creds};
             case ActionTypes.LOGIN_SUCCESS: 
-                return {...state,isLoading: false,isAuthenticated: true,errMess: '',token: action.token};
+                return {...state,isLoading: false,isAuthenticated: true,errMess: '',token: action.token,user:action.user};
             case ActionTypes.LOGIN_FAILURE:
                 return {...state,isLoading: false,isAuthenticated: false,errMess: action.error};
             case ActionTypes.LOGOUT_REQUEST:

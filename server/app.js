@@ -18,7 +18,8 @@ const Threads = require('./models/ThreadModel');
 const Messages = require('./models/MessageModel');
 const Utils = require('./utils/thread');
 
-const url = 'mongodb://localhost:27017/ChatApp';
+//const url = 'mongodb://localhost:27017/ChatIo';
+const url = 'mongodb+srv://anupam07683:anupamjain86198@cluster0-vsr71.mongodb.net/ChatIO?retryWrites=true&w=majority'
 const connect = mongoose.connect(url,{useNewUrlParser: true,useUnifiedTopology: true });
 connect.then((db) => {
     console.log("Connected correctly to mongodb server ");
@@ -37,7 +38,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(session({name:'session-id',secret:'one-man-army',saveUninitialized:false,resave:false}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,8 +46,16 @@ app.use(passport.session());
 
 const userRouter = require('./routes/userRoute');
 const chattingRouter = require('./routes/chattingRouter');
+
+
+
 app.use('/user',userRouter);
 app.use('/chatting',chattingRouter);
+
+app.get('/*',(req,res) => {
+    res.sendFile(path.join(__dirname,'build/index.html'))
+})
+
 io.sockets.on('connection',(socket) => {
 
     //Store Socket in user 

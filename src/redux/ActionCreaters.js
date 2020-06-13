@@ -71,9 +71,11 @@ export const loginRequest = (creds) => ({
     creds : creds
 })
 
-export const loginSuccess = (token) => ({
+export const loginSuccess = (token,user) => ({
     type : ActionTypes.LOGIN_SUCCESS,
-    token : token
+    token : token,
+    user : user
+
 })
 
 export const loginFailed = (error) => ({
@@ -97,10 +99,10 @@ export const login = (creds) => (dispatch) => {
         }
         })
         .then(response => {
-          console.log(response.data.token);
+        //   console.log(response.data.token);
           localStorage.setItem('userdetails',JSON.stringify(response.data.user));
           localStorage.setItem('token',response.data.token);
-          dispatch(loginSuccess(response.data.token));
+          dispatch(loginSuccess(response.data.token,response.data.user));
         })
         .catch(err => {dispatch(loginFailed(err))})
 }

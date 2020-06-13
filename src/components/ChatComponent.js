@@ -5,7 +5,6 @@ import io from 'socket.io-client';
 const ENDPOINT='localhost:8000';
 
 const RenderMessages = ({userid,messages}) => {
-
     if(messages.isLoading === true){
         return(<div></div>)
     }else if(messages.errMess){
@@ -90,9 +89,7 @@ class ChatComponent extends Component {
             }
         }
     }
-    scrollToBottomOfMessages = () => {
-
-    }
+    
     componentDidMount(){
         if(this.props.auth.isAuthenticated === true && this.props.auth.isLoading === false){
             this.state.socket.emit('connection',this.state.user.username);
