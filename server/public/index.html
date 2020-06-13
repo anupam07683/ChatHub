@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ChatApp</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        
+        <style>
+            body{
+                margin-top: 30px;
+            }
+            #messageArea{
+                display:none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class = "container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="jumbotron"></div>
+                </div>
+            </div>
+
+
+            <div id="userFormArea" class="row">
+                <div class="col-12 col-md-12">
+                    <form id="userForm">
+                        <div class="form-group">
+                            <label>Enter Username</label>
+                            <input class="form-control" id="username"/>
+                            <br>
+                            <input type="submit" class="btn btn-primary" value="login"/>
+                        </div>   
+                    </form>
+                </div>
+            </div>
+
+
+            <div id="messageArea" >
+                <div class="row">
+                    <div class="col-4">
+                        <div class="well">
+                            <h3>Online Users</h3>
+                            <ul class="list-group" id="users"></ul>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="chat" id="chat"></div>
+                        
+                        <form id="messageform">
+                            <div class="form-group">
+                                <label>Enter Message</label>
+                                <textarea class="form-control" id="message"></textarea>
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="Send Message"/>
+                            </div>   
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function(){
+                var socket = io.connect();
+                var $messageArea = $('#messageArea');
+                var $messaeForm = $('#messageform');
+                var $message = $('#message');
+                var $chat = $('#chat');
+                var $userFormArea = $('#userFormArea');
+                var $userFrom = $('#userForm');
+                var $users = $('#users');
+                var $username = $('#username');
+
+                $messaeForm.submit( (event)=> {
+                    event.preventDefault();
+                    socket.emit('send message',$message.val());
+                    $message.val('')
+                })
+
+                socket.on('new message',(data) => {
+                    $chat.append('<div class="well"><strong>'+data.user +'</strong> '+data.msg+'</div>');
+                })
+
+                $userFrom.submit( (event)=> {
+                    event.preventDefault();
+                    socket.emit('new user',$username.val(),(data)=> {
+                        if(data){
+                            $userFormArea.hide();
+                            $messageArea.show();
+                        }
+                    });
+                    $username.val('');
+                });
+
+                socket.on('get users',(data) => {
+                    var html = '';
+                    for(i=0;i<data.length;i++){
+                        html += '<li class="list-group-item">'+data[i]+'</li>';
+                    }
+                        
+
+                    $users.html(html);
+                })
+
+            })
+        </script>
+    </body>
+</html>

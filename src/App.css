@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.selecteduser {
+  padding:10px !important;
+}
+.message {
+  display: block;
+}
+.searchbox { 
+  margin-bottom: 5px;
+  border-radius: 15px;
+}
+.messagebox {
+  height:500px;
+  overflow-y: auto;
+  position: relative;
+  
+}
+.messagebutton { 
+  margin-top: 0px !important;
+  padding : 1px !important;
+}
+.userbutton {
+  text-align: left !important;
+}
+.usersbox {
+  height:500px;
+  overflow-y: auto;
+  position: relative;
+
+}
+.innermessagebox {
+  position : absolute;
+  bottom: 0;
+  width:100%;
+
+}
+.sender { 
+  background-color: #ff9933;
+  float : right;
+  border-radius: 10px;
+  padding:2px 10px 2px 10px;
+}
+
+
+.receiver { 
+  background-color:greenyellow;
+  float:left;
+  border-radius: 10px;
+  padding:2px 10px 2px 10px;
+}
+
+.icon {
+  padding: 6px;
+  margin:6px;
+}
+
+.nopadding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.bgcolor {
+  background-color: rgb(204, 255, 255) !important;
+}
