@@ -31,7 +31,7 @@ function LoginComponent({login,isAuthenticated}) {
           <Col sm="12" md={{size:4,offset:4}}>
             <Card style={{marginTop:200,backgroundColor:' #ccffff'}} >
               <CardBody>
-                <CardTitle><h3>Chat.Io</h3></CardTitle>
+                <CardTitle><h3>ChatHub</h3></CardTitle>
                 <Form onSubmit={handleLoginSubmit} >
                   <div className="form-group">
                     <Input type='text' placeholder='username' onChange={(event) => { setUsername(event.target.value)}}/>

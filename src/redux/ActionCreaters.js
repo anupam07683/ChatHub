@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
+import { url } from '../shared/url';
 
 export const messagesLoading = () => ({
     type : ActionTypes.LOADING_MESSAGES
@@ -21,7 +22,7 @@ export const fetchMessages = (token) => (dispatch) => {
     dispatch(messagesLoading());
     axios({
         method:'get',
-        url:'http://localhost:8000/chatting/getmessages',
+        url: url + '/chatting/getmessages',
         headers:{
             'Content-Type':'application/json',
             'Authorization':bearer
@@ -55,7 +56,7 @@ export const fetchConnectedUsers = (token) => (dispatch) => {
 
     axios({
         method:'get',
-        url:'http://localhost:8000/chatting/getconnectedusers',
+        url: url + '/chatting/getconnectedusers',
         headers:{
             'Content-Type':'application/json',
             'Authorization': bearer
@@ -89,7 +90,7 @@ export const login = (creds) => (dispatch) => {
     
     axios({
         method:'post',
-        url:'http://localhost:8000/user/login',
+        url: url + '/user/login',
         headers : {
           'Content-Type':'application/json'
         },
@@ -149,7 +150,7 @@ export const signup = (creds) => (dispatch) => {
     dispatch(signupRequested(creds));
     axios({
         method:'post',
-        url : 'http://localhost:8000/user/signup',
+        url : url + '/user/signup',
         headers:{
           'Content-Type':'application/json'
         },

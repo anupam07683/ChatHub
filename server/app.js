@@ -8,8 +8,6 @@ const logger = require('morgan');
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-
-
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
@@ -46,8 +44,6 @@ app.use(passport.session());
 
 const userRouter = require('./routes/userRoute');
 const chattingRouter = require('./routes/chattingRouter');
-
-
 
 app.use('/user',userRouter);
 app.use('/chatting',chattingRouter);

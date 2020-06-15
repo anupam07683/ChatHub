@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Card, CardBody, Row, Col, ListGroup, Input, Form, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom'
 import io from 'socket.io-client';
-const ENDPOINT='localhost:8000';
+import { url } from '../shared/url';
+// const ENDPOINT='localhost:8000';
+const ENDPOINT=  url + '/';
+
 
 const RenderMessages = ({userid,messages}) => {
     if(messages.isLoading === true){
