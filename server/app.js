@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -17,7 +18,7 @@ const Messages = require('./models/MessageModel');
 const Utils = require('./utils/thread');
 
 //const url = 'mongodb://localhost:27017/ChatIo';
-const url = 'mongodb+srv://anupam07683:anupamjain86198@cluster0-vsr71.mongodb.net/ChatIO?retryWrites=true&w=majority'
+const url = `mongodb+srv://${process.env.db_user}:${process.env.db_password}@cluster0-vsr71.mongodb.net/${process.env.databse}?retryWrites=true&w=majority`
 const connect = mongoose.connect(url,{useNewUrlParser: true,useUnifiedTopology: true });
 connect.then((db) => {
     console.log("Connected correctly to mongodb server ");
