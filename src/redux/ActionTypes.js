@@ -2,6 +2,10 @@ export const ADD_MESSAGES = 'ADD_MESSAGES';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const LOADING_MESSAGES = 'LOADING_MESSAGES';
 export const MESSAGES_FAILED = 'MESSAGES_FAILED';
+export const SET_SEEN = 'SET_SEEN';
+export const UPDATE_SEEN = 'UPDATE_SEEN'; 
+
+export const LOADING_SEEN = 'LOADING_SEEN';
 export const ADD_USERS = 'ADD_USERS';
 export const LOADING_USERS = 'LOADING_USERS';
 export const USERS_FAILED  = 'USERS_FAILED';

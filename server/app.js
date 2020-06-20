@@ -73,7 +73,7 @@ io.sockets.on('connection',(socket) => {
                 console.log(err);
             }
             else{
-                Messages.create({sender:data.sender._id,message:data.newMessage,thread:thread._id})
+                Messages.create({sender:data.sender._id,message:data.newMessage,thread:thread._id,seen:false})
                 .then(message => { 
                     Messages.findOne({_id:message.id})
                     .populate('thread')
@@ -87,4 +87,21 @@ io.sockets.on('connection',(socket) => {
             }
         });   
     });
+
+    socket.on('set_seen_true',(participant1,participant2) => {
+        let sender = {};
+        let receiver = {};
+        sender._id = participant1;
+        receiver._id = participant2;
+        Utils.getThread(sender,receiver,(err,thread) => {
+            if(err){
+                console.log(err.message);
+            }else{
+                Messages.updateMany({sender:{$ne:sender._id},thread:{ $in :thread}},{seen:true})
+                .then((messages) => {
+                    io.to(receiver._id).emit('seen',{receiver:sender._id})
+                })
+            }
+        })
+    })
 })

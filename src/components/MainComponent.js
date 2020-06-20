@@ -5,7 +5,7 @@ import ChatComponent from './ChatComponent';
 import Header from './HeaderComponent';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { fetchConnectedUsers, fetchMessages, login, signup, logout, selectUser, addMessage } from '../redux/ActionCreaters';
+import { fetchConnectedUsers, fetchMessages, login, signup, logout, selectUser, addMessage, setSeenTrue, UpdateSeen } from '../redux/ActionCreaters';
 
 const mapDispatchToProps = (dispatch) => ({
     fetchMessages : (token) => dispatch(fetchMessages(token)),
@@ -14,7 +14,9 @@ const mapDispatchToProps = (dispatch) => ({
     signup : (creds) => dispatch(signup(creds)),
     logout : () => dispatch(logout()),
     setSelected : (userid) => dispatch(selectUser(userid)),
-    addNewMessage : (message) => dispatch(addMessage(message))
+    addNewMessage : (message) => dispatch(addMessage(message)),
+    setSeen : (sender,receiver) => dispatch(setSeenTrue(sender,receiver)),
+    updateSeen : (user,receiver) => dispatch(UpdateSeen(user,receiver)),
 });
 
 const mapStateToProps = (state) => {
@@ -50,7 +52,7 @@ class Main extends Component{
                     
                     <Route path='/signup' exact component={() => <SignUpComponent signup={this.props.signup} isAuthenticated={this.props.auth.isAuthenticated} success={this.props.signupSuccess}/>}/>
                     
-                    <Route path='/chat' exact component={() => <ChatComponent connectedUsers={this.props.users} messages={this.props.messages} logout={this.props.logout} setSelected={this.props.setSelected}  addNewMessage={this.props.addNewMessage} auth={this.props.auth} />}/>
+                    <Route path='/chat' exact component={() => <ChatComponent connectedUsers={this.props.users} messages={this.props.messages} setSelected={this.props.setSelected}  addNewMessage={this.props.addNewMessage} auth={this.props.auth} setSeen={this.props.setSeen} updateSeen={this.props.updateSeen}/>} />
                     
                     <Route path='*' component={LoginComponent} />
 

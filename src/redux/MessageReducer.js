@@ -24,6 +24,23 @@ export const Messages = (
             case ActionTypes.SELECTED : 
                 return{...state,selecteduser:action.payload};
             
+            case ActionTypes.SET_SEEN :
+                return {...state,isLoading:false,messages:state.messages.map(message => {
+                        if((message.sender !== action.sender) && (message.thread.participant1 === action.sender || message.thread.participant2 === action.sender)){
+                            message.seen = true;
+                        }
+                        return message;
+                })};
+
+            case ActionTypes.UPDATE_SEEN : 
+                return {...state,isLoading:false,messages:state.messages.map(message => {
+                    if(message.sender === action.user && (message.thread.participant1 === action.receiver || message.thread.participant2 === action.receiver)){
+                        message.seen = true;
+                    }
+                    return message;
+                })};
+            case ActionTypes.LOADING_SEEN : 
+                return {...state,isLoading:true}
             default : return state;
         }
     }

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 import { Messages } from './MessageReducer';
 import { Users } from './userReducer';
 import { Auth } from './authReducer';
@@ -13,7 +13,7 @@ export const ConfigureStore = () => {
             users : Users,
             auth : Auth,
             signup : SignUp
-        }),applyMiddleware(thunk));
+        }),applyMiddleware(thunk,logger));
 
     return store;
 }

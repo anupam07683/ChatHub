@@ -186,3 +186,27 @@ export const addMessage = (message) => (dispatch) => {
     //console.log(message)
     dispatch(addMess(message.message));
 }
+
+
+export const setSeen = ({sender},{receiver}) => ({
+    type : ActionTypes.SET_SEEN,
+    sender : sender,
+    receiver : receiver,
+});
+
+export const loadingSeen = () => ({
+    type : ActionTypes.LOADING_SEEN
+})
+export const setSeenTrue = (sender,receiver) => (dispatch) =>  {
+    dispatch(loadingSeen());
+    dispatch(setSeen(sender,receiver));
+}
+export const updateSeen = (user,receiver) => ({
+    type : ActionTypes.UPDATE_SEEN,
+    user : user,
+    receiver : receiver
+})
+export const UpdateSeen = (user,receiver) => (dispatch) => {
+    console.log(user,receiver)
+    dispatch(updateSeen(user,receiver));
+}
